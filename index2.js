@@ -2,6 +2,7 @@ const battleship = () => {
   //assign name variables
   let p1 = prompt("What is your name P1?");
   let p2 = prompt("What is your name P2?");
+  let message;
 
   let p1Grid = createGrid(4);
   let p2Grid = createGrid(4);
@@ -56,33 +57,57 @@ const battleship = () => {
       }
     }
   }
+  console.log(players);
 
-  //create a loop to check for spaces with ships
-//   for (k = 0; k < p1Grid.length; k++) {
-//     for (j = 0; j < players.length; j++) {
-//       let strikeX1 = parseInt(prompt("P1: Choose an x coordinate to strike your opponent"));
-//       let strikeY1 = parseInt(prompt("P1: Choose a y coordinate to strike your opponent"));
-//       if ([strikeY1, strikeX1] == players[1].gameBoard[k][k]) {
-//         alert("Direct hit!");
-//         players[1].gameBoard[k] = " 0 ";
-//         players[1].shipCount --;
-//       }
-//     }
-//   }
+  //create a function for P1 coordinates
+  const P1 = () => {
+    let strikeX1 = parseInt(
+      prompt("P1: Choose an x coordinate to strike your opponent")
+    );
+    let strikeY1 = parseInt(
+      prompt("P1: Choose a y coordinate to strike your opponent")
+    );
+    for (k = 0; k < p2Grid.length; k++) {
+      if ([strikeY1, strikeX1] == players[1].gameBoard[k][k]) {
+        message = alert("Direct hit!");
+        players[1].gameBoard[k][k] = " 0 ";
+        players[1].shipCount -= 1;
+      } else {
+        message = alert("You missed!");
+        break
+      }
+    }
+    return message;
+  };
 
-//   //second loop for p2 (I know there's got to be a way to loop this for 2 players)
-//   for (k = 0; k < p1Grid.length; k++) {
-//     for (j = 0; j < players.length; j++) {
-//       let strikeX2 = parseInt(prompt("P2: Choose an x coordinate to strike your opponent"));
-//       let strikeY2 = parseInt(prompt("P2: Choose a y coordinate to strike your opponent"));
-//       if ([strikeY2, strikeX2] == players[0].gameBoard[k][k]) {
-//         alert("Direct hit!");
-//         players[0].gameBoard[k] = " 0 ";
-//         players[0].shipCount --;
-//       }
-//     }
-//   }
+  //second loop for p2 (I know there's got to be a way to loop this for 2 players)
+  const P2 = () => {
+    let strikeX2 = parseInt(
+      prompt("P1: Choose an x coordinate to strike your opponent")
+    );
+    let strikeY2 = parseInt(
+      prompt("P1: Choose a y coordinate to strike your opponent")
+    );
+    for (k = 0; k < p2Grid.length; k++) {
+      if ([strikeY2, strikeX2] == players[0].gameBoard[k][k]) {
+        message = alert("Direct hit!");
+        players[0].gameBoard[k][k] = " 0 ";
+        players[0].shipCount -= 1;
+      } else {
+        message = alert("You missed!");
+        break
+      }
+    }
+    return message;
+  };
 
+  //loop making players switch after missed shots
+  for (i = 0; i < p1Grid.length; i++) {
+    P1();
+    if (P1() == "You missed!") {
+      P2();
+    }
+  }
   // function printGrid(grid, isEnemy = false) {
   //     const headers = createHeaders(grid.length);
   //     let rowStr;
@@ -105,7 +130,6 @@ const battleship = () => {
   //         return result;
   //     }
   // }
-
   console.log(players);
   return "The winner is...?";
 };
