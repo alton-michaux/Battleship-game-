@@ -28,9 +28,13 @@ const battleship = () => {
   ];
 
   console.log(players);
+  console.log(p1Grid);
+  console.log(p2Grid);
 
   //call function to start actual gameplay
-  gamePlay(players, p1Grid);
+  for (i = 0; i < p1Grid.length; i++) {
+    gamePlay(players, p1Grid);
+  }
 
   //create function that takes a size parameter to create a grid
   function createGrid(size) {
@@ -65,23 +69,23 @@ const battleship = () => {
     );
     let y = parseInt(
       prompt(
-        `${obj[player].name} choose an Y coordinate to strike ${obj[opPlayer].name}'s battleship.`
+        `${obj[player].name} choose a Y coordinate to strike ${obj[opPlayer].name}'s battleship.`
       )
     );
     if (obj[opPlayer].gameBoard[0][(y, x)] == " 1 ") {
       alert(
-        `Direct hit ${obj[player].name}! You sank ${opPlayer}'s battleship. They have ${obj[opPlayer].shipCount} battleships left`
+        `Direct hit ${obj[player].name}! You sank ${obj[opPlayer].name}'s battleship. They have ${obj[opPlayer].shipCount - 1} battleships left`
       );
       players[opPlayer].gameBoard[0][(y, x)] = " ! ";
       do {
-        obj[opPlayer].shipCount--;
-      } while (obj[opPlayer].shipCount > 0);
+        obj[opPlayer].shipCount -- ;
+      } while (strike(obj, player, opPlayer) == true)
       return true;
-    } else if ((obj[opPlayer].gameBoard[0][(y, x)] = " - ")) {
+    } else if ((obj[opPlayer].gameBoard[0][(y, x)] == " - ")) {
       alert(`You're wasting time! That spot has already been hit!`);
       return false;
     } else {
-      alert(`Ah, you missed! ${opPlayer}'s battleship has evaded you!`);
+      alert(`Ah, you missed! ${obj[opPlayer].name}'s ships are evading you!`);
       obj[opPlayer].gameBoard[0][(y, x)] = " - ";
       return false;
     }
@@ -89,15 +93,13 @@ const battleship = () => {
 
   // function to tie everything together
   function gamePlay(obj, grid) {
-    for (i = 0; i < grid.length; i++) {
-      strike(obj, 0, 1);
-      // shipDecrease(obj, 0, 1);
-    }
     if (strike(obj, 0, 1) == false) {
       strike(obj, 1, 0);
     }
   }
 
+  console.log(p1Grid);
+  console.log(p2Grid);
   console.log(players);
 };
 
