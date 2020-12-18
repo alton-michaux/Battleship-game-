@@ -31,9 +31,14 @@ const battleship = () => {
   console.log(p1Grid);
   console.log(p2Grid);
 
+  //call function to start the game
+  start(players);
+
   //call function to start actual gameplay
-  for (i = 0; i < p1Grid.length; i++) {
-    gamePlay(players, p1Grid);
+  function start (obj) {
+    do {
+    gamePlay(obj);
+  } while (obj.shipCount > 0);
   }
 
   //create function that takes a size parameter to create a grid
@@ -81,7 +86,7 @@ const battleship = () => {
         obj[opPlayer].shipCount -- ;
       } while (strike(obj, player, opPlayer) == true)
       return true;
-    } else if ((obj[opPlayer].gameBoard[0][(y, x)] == " - ")) {
+    } else if ((obj[opPlayer].gameBoard[0][(y, x)] == " - " || obj[opPlayer].gameBoard[0][(y, x)] == " ! ")) {
       alert(`You're wasting time! That spot has already been hit!`);
       return false;
     } else {
@@ -91,8 +96,8 @@ const battleship = () => {
     }
   }
 
-  // function to tie everything together
-  function gamePlay(obj, grid) {
+  // function to switch players after shots are fired
+  function gamePlay(obj) {
     if (strike(obj, 0, 1) == false) {
       strike(obj, 1, 0);
     }
