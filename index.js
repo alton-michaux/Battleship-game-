@@ -80,42 +80,6 @@ const battleship = () => {
     return result;
   }
 
-  // function printGrid(grid, isEnemy = false) {
-//     const headers = createHeaders(grid.length);
-//     let rowStr;
-//     for (i = 0; i < grid.length; i++) {
-//         rowStr = i + " ";
-//         for (let cell of grid[i]) {
-//             if (isEnemy && cell == " 1 ") {
-//                 rowStr += " 0 ";
-//             } else {
-//                 rowStr += cell + " 0 "
-//             }
-//         }
-//     }
-//     return rowStr;
-//     function createHeaders(size) {
-//         let result = " ";
-//         for (i = 0; i < size; i++) {
-//             result += i + " ";
-//         }
-//         return result;
-//     }
-// }
-//   console.log(players);
-//   return "The winner is...?";
-// };
-
-  // console.log(p1Grid);
-  // console.log(createGrid(4));
-
-  // let strikeX = parseInt(
-  //   prompt("Choose an x coordinate to strike your opponent's battleship.")
-  // );
-  // let strikeY = parseInt(
-  //   prompt("Choose a y coordinate to strike your opponent's battleship.")
-  // );
-
   // return "The winner is...?";
 };
 
