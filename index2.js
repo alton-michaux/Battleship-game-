@@ -27,20 +27,6 @@ const battleship = () => {
     },
   ];
 
-  console.log(players);
-  console.log(p1Grid);
-  console.log(p2Grid);
-
-  //call function to start the game
-  start(players);
-
-  //call function to start actual gameplay
-  function start (obj) {
-    do {
-    gamePlay(obj);
-  } while (obj.shipCount > 0);
-  }
-
   //create function that takes a size parameter to create a grid
   function createGrid(size) {
     let grid = [];
@@ -55,53 +41,67 @@ const battleship = () => {
   }
 
   //create a function to generate random coordinates for ships and place them as 1's on the grid
-  function placeCharacters(c, board, max) {
+  function placeCharacters(c, grid, max) {
     for (i = 0; i < max; i++) {
-      let randX = Math.floor(Math.random() * 4);
       let randY = Math.floor(Math.random() * 4);
-      if ([randY, randX] !== board) {
-        board[i][(randY, randX)] = ` ${c} `;
+      let randX = Math.floor(Math.random() * 4);
+      if (grid[randY][randX] !== " 1 ") {
+        grid[randY][randX] = ` ${c} `;
       }
     }
   }
 
   // create a strike function to pass coordinates through opponent grid
-  function strike(obj, player, opPlayer) {
+  function strike(objV, player, opPlayer) {
     let x = parseInt(
       prompt(
-        `${obj[player].name} choose an X coordinate to strike ${obj[opPlayer].name}'s battleship.`
+        `${objV[player].name} choose an X coordinate to strike ${objV[opPlayer].name}'s battleship.`
       )
     );
     let y = parseInt(
       prompt(
-        `${obj[player].name} choose a Y coordinate to strike ${obj[opPlayer].name}'s battleship.`
+        `${objV[player].name} choose a Y coordinate to strike ${objV[opPlayer].name}'s battleship.`
       )
     );
-    if (obj[opPlayer].gameBoard[0][(y, x)] == " 1 ") {
-      alert(
-        `Direct hit ${obj[player].name}! You sank ${obj[opPlayer].name}'s battleship. They have ${obj[opPlayer].shipCount - 1} battleships left`
-      );
-      players[opPlayer].gameBoard[0][(y, x)] = " ! ";
-      do {
-        obj[opPlayer].shipCount -- ;
-      } while (strike(obj, player, opPlayer) == true)
-      return true;
-    } else if ((obj[opPlayer].gameBoard[0][(y, x)] == " - " || obj[opPlayer].gameBoard[0][(y, x)] == " ! ")) {
-      alert(`You're wasting time! That spot has already been hit!`);
-      return false;
-    } else {
-      alert(`Ah, you missed! ${obj[opPlayer].name}'s ships are evading you!`);
-      obj[opPlayer].gameBoard[0][(y, x)] = " - ";
-      return false;
+    for (i = 0; i < 4; i ++) {
+      if (objV[opPlayer].gameBoard[y][x] == " 1 ") {
+        alert(
+          `Direct hit ${objV[player].name}! You sank ${
+            objV[opPlayer].name
+          }'s battleship. They have ${
+            objV[opPlayer].shipCount - 1
+          } battleships left`
+        );
+        objV[opPlayer].gameBoard[y][x] = " ! ";
+        objV[opPlayer].shipCount--;
+        return true
+      } else if (
+        objV[opPlayer].gameBoard[y][x] == " - " ||
+        objV[opPlayer].gameBoard[y][x] == " ! "
+      ) {
+        alert(`You're wasting time! That spot has already been hit!`);
+        return false
+      } else {
+        alert(`Ah, you missed! ${objV[opPlayer].name}'s ships are evading you!`);
+        objV[opPlayer].gameBoard[y][x] = " - ";
+        return false
+      }
     }
   }
 
-  // function to switch players after shots are fired
-  function gamePlay(obj) {
-    if (strike(obj, 0, 1) == false) {
-      strike(obj, 1, 0);
+  //call function to start actual gameplay
+  function start(objV, player, opPlayer) {
+    while (objV[player].shipCount > 0 && objV[opPlayer].shipCount > 0) {
+      strike(objV, player, opPlayer);
+    } if (strike === false) {
+      strike(objV, opPlayer, player);
+    } else {
+      alert(`Game Over.`);
     }
   }
+
+  //call function to start the game
+  start(players, 0, 1);
 
   console.log(p1Grid);
   console.log(p2Grid);
