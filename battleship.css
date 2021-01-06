@@ -1,0 +1,98 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/*set flex specifications for body of html document to make all children flex items and set font*/
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-image: repeating-linear-gradient(#556d77, #243841, #0a202a);
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/*set title bar specifications for text headings*/
+h2 {
+  text-align: center;
+  margin-bottom: 5px;
+  font-size: 15px;
+  background-color: #0a202a;
+  box-shadow: 0px 0px 4px black;
+}
+
+h1 {
+  margin-bottom: 0.5em;
+}
+
+/*main header includes nav and logo elements*/
+.main-header {
+  margin: 0;
+  padding: 0;
+  color: white;
+  background-color: #0A202A;
+}
+
+/*div for logo on left side of nav bar*/
+.name {
+  align-self: start;
+}
+
+.logo {
+  text-align: center;
+  font-size: 20px;
+  background-color: #243841;
+  border: solid 1px #0A202A;
+  margin-left: 1.5em;
+  padding: 10px;
+  opacity: 80%;
+  box-shadow: 0px 0px 4px black;
+}
+
+.content-main {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.game-container {
+  background: white;
+  padding: 1em;
+}
+
+#result {
+  place-items: center;
+}
+
+/*=================================================*/
+
+/*special instructions for smaller screens*/
+@media screen and (min-width: 250px) {
+  .main-header {
+    display: flex;
+  }
+
+  .main-header {
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .head-div {
+    flex-direction: column;
+  }
+}
+
+/*instructions for medium to large screens*/
+
+@media screen and (min-width: 1024px) {
+  .main-header {
+    flex-direction: inherit;
+    justify-content: space-between;
+    width: 100%;
+  }
+}

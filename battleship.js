@@ -1,22 +1,21 @@
+/*===============================================*/
+
 const battleship = () => {
-  //assign name variables
+    //assign name variables
   let p1 = prompt("What is your name P1?");
   let p2 = prompt("What is your name P2?");
-  //assign winner variable
+    //assign winner variable
   let winner;
-
-  //declare grid variable for p1
+    //declare grid variable for p1
   let p1Grid = createGrid(4);
-  //call function for random ship placement on p1 grid
+    //call function for random ship placement on p1 grid
   placeCharacters(1, p1Grid, 4);
-  console.log(p1Grid)
-  //declare grid variable for p2
+    //declare grid variable for p2
   let p2Grid = createGrid(4);
-  //call function for random ship placement on p2 grid
+    //call function for random ship placement on p2 grid
   placeCharacters(1, p2Grid, 4);
-  console.log(p2Grid)
 
-  //initialize players objects
+  //initialize players object
   const players = [
     {
       name: p1,
@@ -30,6 +29,8 @@ const battleship = () => {
     },
   ];
 
+
+  console.log(players);
   //setup functions
 
   //1. create function that takes a size parameter to create a grid
@@ -113,8 +114,6 @@ const battleship = () => {
   //call function to start the game
   start(players, 0, 1);
 
-  console.log(players);
-
   return `The winner is ${winner}!`
 };
 
@@ -122,29 +121,3 @@ const gameResult = battleship();
 
 htmlTarget = document.getElementById("result");
 htmlTarget.innerHTML = gameResult;
-
-// function printGrid(grid, isEnemy = false) {
-//   const headers = createHeaders(grid.length);
-//   // console.log(headers);
-//   let rowStr;
-//   for (let i = 0; i < grid.length; i++) {
-//     rowStr = i + "  ";
-//     for (let cell of grid[i]) {
-//       if (isEnemy && cell == " 1 ") {
-//         rowStr += " 0 ";
-//       } else {
-//         rowStr += cell + " 0 ";
-//       }
-//     }
-//   }
-//   // console.log(rowStr);
-//   return rowStr
-// }
-
-// function createHeaders(size) {
-//   let result = " ";
-//   for (i = 0; i < size; i++) {
-//     result += i + " ";
-//   }
-//   return result;
-// }
